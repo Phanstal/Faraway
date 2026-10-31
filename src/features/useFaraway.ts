@@ -132,8 +132,6 @@ export function useFaraway(): FarawayController {
       notificationPermission === 'granted'
     ) {
       void scheduleEyeBreakNotification(snapshot.timer.endsAt);
-    } else {
-      void cancelEyeBreakNotification();
     }
   }, [
     ready,
@@ -280,6 +278,7 @@ export function useFaraway(): FarawayController {
         timer: { mode: 'paused', remaining, endsAt: null },
       };
     });
+    void cancelEyeBreakNotification();
     void tapFeedback();
   }, []);
 
@@ -312,6 +311,7 @@ export function useFaraway(): FarawayController {
         },
       };
     });
+    void cancelEyeBreakNotification();
     void tapFeedback();
   }, []);
 
@@ -323,6 +323,7 @@ export function useFaraway(): FarawayController {
         timer: { mode: 'complete', remaining: 0, endsAt: null },
       };
     });
+    void cancelEyeBreakNotification();
   }, []);
 
   const handlePrimary = useCallback(() => {

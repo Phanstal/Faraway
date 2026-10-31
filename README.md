@@ -57,7 +57,9 @@ Android 原生运行（API 33 模拟器，1080 × 2400）：
 
 ![Android 原生专注页](docs/screenshots/android-focus.png)
 
-iOS 模拟器运行（GitHub Actions macOS，iPhone 15 Pro）：见 [CI 产物](https://github.com/Phanstal/Faraway/actions/workflows/ci.yml) 中的 `Faraway-ios-home.png`。
+iOS 模拟器运行（GitHub Actions macOS 14，iPhone 15 Pro）：
+
+![iOS 模拟器专注页](docs/screenshots/ios-simulator-home.png)
 
 ## 隐私
 
