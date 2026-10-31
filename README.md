@@ -12,12 +12,12 @@
 
 从 [Releases](https://github.com/Phanstal/Faraway/releases/latest) 下载最新版本：
 
-| 平台       | 文件                              | 说明                                           |
-| ---------- | --------------------------------- | ---------------------------------------------- |
-| Android    | `Faraway-0.1.0-android-debug.apk` | 可直接安装的 debug 签名 APK                    |
-| iOS        | `Faraway-0.1.0-ios-unsigned.ipa`  | 未签名 IPA，需要使用自己的 Apple ID 重签后安装 |
-| iOS 模拟器 | `Faraway-0.1.0-ios-simulator.zip` | 需要 macOS + Xcode，解压后拖入模拟器           |
-| 校验       | `SHA256SUMS.txt`                  | 所有发布文件的 SHA-256                         |
+| 平台       | 文件                                                                                                                              | 说明                                           |
+| ---------- | --------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
+| Android    | [`Faraway-0.1.0-android-debug.apk`](https://github.com/Phanstal/Faraway/releases/latest/download/Faraway-0.1.0-android-debug.apk) | 可直接安装的 debug 签名 APK                    |
+| iOS        | [`Faraway-0.1.0-ios-unsigned.ipa`](https://github.com/Phanstal/Faraway/releases/latest/download/Faraway-0.1.0-ios-unsigned.ipa)   | 未签名 IPA，需要使用自己的 Apple ID 重签后安装 |
+| iOS 模拟器 | [`Faraway-0.1.0-ios-simulator.zip`](https://github.com/Phanstal/Faraway/releases/latest/download/Faraway-0.1.0-ios-simulator.zip) | 需要 macOS + Xcode，解压后拖入模拟器           |
+| 校验       | [`SHA256SUMS.txt`](https://github.com/Phanstal/Faraway/releases/latest/download/SHA256SUMS.txt)                                   | 所有发布文件的 SHA-256                         |
 
 ### Android 安装
 
@@ -66,6 +66,13 @@ iOS 模拟器运行（GitHub Actions macOS 14，iPhone 15 Pro）：
 - 不创建账号，不连接服务器，不发送分析或崩溃数据。
 - 专注记录只写入当前设备的应用私有存储。
 - 卸载应用或在系统设置中清除应用数据会删除记录；当前版本没有导出/导入功能。
+
+## 已知限制
+
+- 后台本地通知依赖 Android 闹钟调度。未授予「闹钟和提醒」权限时，系统会使用非精确闹钟，通知可能延迟约 1 分钟；应用内计时不受影响。
+- 当前没有云同步、账号、导出/导入，数据只在本机。
+- Android APK 使用 debug 签名，适合个人安装验收，不适合直接上架 Google Play。
+- iOS 只提供未签名 IPA 和模拟器包，真机需要自行签名。
 
 ## 设计来源与实现差异
 

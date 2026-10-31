@@ -19,16 +19,18 @@ Figma 原型把专注时长加速为 10 秒用于演示，因此设计稿中的�
 
 ## 下载文件
 
-- `Faraway-0.1.0-android-debug.apk` — Android debug 签名 APK，可直接侧载。
-- `Faraway-0.1.0-ios-unsigned.ipa` — iOS 未签名 IPA，需要自行用 Apple ID 重签。
-- `Faraway-0.1.0-ios-simulator.zip` — iOS 模拟器 App，需要 macOS + Xcode。
-- `SHA256SUMS.txt` — 校验和。
+- [Faraway-0.1.0-android-debug.apk](https://github.com/Phanstal/Faraway/releases/download/v0.1.0/Faraway-0.1.0-android-debug.apk) — Android debug 签名 APK，可直接侧载。
+- [Faraway-0.1.0-ios-unsigned.ipa](https://github.com/Phanstal/Faraway/releases/download/v0.1.0/Faraway-0.1.0-ios-unsigned.ipa) — iOS 未签名 IPA，需要自行用 Apple ID 重签。
+- [Faraway-0.1.0-ios-simulator.zip](https://github.com/Phanstal/Faraway/releases/download/v0.1.0/Faraway-0.1.0-ios-simulator.zip) — iOS 模拟器 App，需要 macOS + Xcode。
+- [SHA256SUMS.txt](https://github.com/Phanstal/Faraway/releases/download/v0.1.0/SHA256SUMS.txt) — 校验和。
 
 ## 验证情况
 
+- CI：[run 41163996500](https://github.com/Phanstal/Faraway/actions/runs/41163996500)，Web / Android / iOS 三个 job 全部成功。
 - Web：lint、格式、类型检查、15 项单元测试、5 项移动端 E2E 全部通过。
-- Android：API 33 x86_64 模拟器完成安装、启动、通知权限弹窗、计时开始、后台恢复、返回键和本地持久化验证；APK 为 debug 签名。
-- iOS：GitHub Actions macOS 14 runner 上构建模拟器 App 并启动；设备目标由 release workflow 构建未签名 IPA。本地环境为 Windows，无法在真机上运行验证；真机安装需要用户自己的 Apple 签名。
+- Android：API 33 x86_64 模拟器完成安装、启动、通知权限弹窗、20 分钟专注结束、后台恢复、20 秒休息、完整循环、暂停后杀进程恢复、返回键和 Insights 验证；发布 APK 再次安装并启动成功，APK 为 debug 签名。
+- iOS：GitHub Actions macOS 14 runner 上构建模拟器 App、安装、启动并截图；设备目标由 release workflow 构建未签名 IPA。本地环境为 Windows，无法在真机上运行验证；真机安装需要用户自己的 Apple 签名。
+- 发布文件：APK、IPA、模拟器 zip 与 SHA256SUMS.txt 已上传；下载后重新计算 SHA-256，与清单一致。
 
 ## 已知限制
 
