@@ -28,6 +28,15 @@ function session(endedAt: number, overrides: Partial<FocusSession> = {}): FocusS
   };
 }
 
+describe('production timer', () => {
+  it('starts at 20 minutes and breaks for 20 seconds', () => {
+    expect(FOCUS_SECONDS).toBe(20 * 60);
+    expect(BREAK_SECONDS).toBe(20);
+    expect(formatClock(FOCUS_SECONDS)).toBe('20:00');
+    expect(formatClock(BREAK_SECONDS)).toBe('00:20');
+  });
+});
+
 describe('clock and duration formatting', () => {
   it('formats focus and break clocks with tabular minutes', () => {
     expect(formatClock(FOCUS_SECONDS)).toBe('20:00');
