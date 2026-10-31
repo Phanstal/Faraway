@@ -36,10 +36,12 @@ Figma 原型把专注时长加速为 10 秒用于演示，因此设计稿中的�
 
 ## 验证情况
 
-- Web：lint、格式、类型检查、16 项单元测试、5 项移动端 E2E 全部通过。
-- Android：API 33 x86_64 模拟器安装并启动 `0.1.1` APK，确认初始显示 `20:00`；此前完整循环验证覆盖 20 分钟专注、20 秒休息、暂停恢复、后台恢复、通知和持久化。
-- iOS：GitHub Actions macOS 14 runner 构建、安装、启动并截图模拟器 App；设备目标由 release workflow 构建未签名 IPA。本地环境为 Windows，无法在真机上运行验证；真机安装需要用户自己的 Apple 签名。
-- 发布文件：APK、IPA、模拟器 zip 与 SHA256SUMS.txt 发布后，重新下载并核对 SHA-256。
+- CI：[run 41165955195](https://github.com/Phanstal/Faraway/actions/runs/41165955195)，Web / Android / iOS 三个 job 全部成功。
+- Release workflow：[run 41165969359](https://github.com/Phanstal/Faraway/actions/runs/41165969359)，APK、未签名 IPA、模拟器 zip 与 SHA256SUMS.txt 全部上传成功。
+- Web：lint、格式、类型检查、16 项单元测试、5 项移动端 E2E 全部通过；E2E 明确覆盖 20 分钟专注和 20 秒休息。
+- Android：API 33 x86_64 模拟器安装并启动发布 APK，`versionCode 2` / `versionName 0.1.1`，初始计时器显示 `20:00`；此前完整循环验证覆盖 20 分钟专注、20 秒休息、暂停恢复、后台恢复、通知和持久化。
+- iOS：GitHub Actions macOS 14 runner 构建、安装、启动并截图模拟器 App；设备目标由 release workflow 构建未签名 IPA，包内版本为 `0.1.1` / build `2`。本地环境为 Windows，无法在真机上运行验证；真机安装需要用户自己的 Apple 签名。
+- 发布文件：APK、IPA、模拟器 zip 与 SHA256SUMS.txt 已重新下载并核对，SHA-256 与清单一致；Android 发布 APK 的 SHA-256 为 `9e158c9889e82ebc27ed6ca8836f7df890d7701a3f2966ef270830d2ea493108`。
 
 ## 已知限制
 

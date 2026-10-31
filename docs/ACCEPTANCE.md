@@ -175,13 +175,13 @@ iOS 模拟器由 CI 启动并截图，界面与安全区正常：
 | 格式        | `npm run format:check`    | passed                                                                                     |
 | Android APK | `./gradlew assembleDebug` | BUILD SUCCESSFUL                                                                           |
 | iOS 模拟器  | GitHub Actions macOS      | 构建、启动、截图均成功                                                                     |
-| CI 全流程   | GitHub Actions            | success（[run 41163996500](https://github.com/Phanstal/Faraway/actions/runs/41163996500)） |
+| CI 全流程   | GitHub Actions            | success（[run 41165955195](https://github.com/Phanstal/Faraway/actions/runs/41165955195)） |
 
 ## 发布产物验收
 
 - [x] GitHub Release 包含 APK、未签名 IPA、模拟器 zip、SHA256SUMS.txt。
 - [x] 所有文件的 SHA-256 与 `SHA256SUMS.txt` 一致。
-- [x] APK 安装到 Android 13 模拟器并成功启动（覆盖安装保留原有数据）。
+- [x] APK 安装到 Android 13 模拟器并成功启动；初始计时器显示 `20:00`。
 - [ ] 未签名 IPA 能被重签工具识别（不要求直接安装；当前只验证了 Payload/App.app 结构完整）。
 - [ ] 模拟器 zip 能在 macOS Xcode Simulator 中启动（CI 已对同源 Debug 模拟器包做启动截图，Release zip 未单独启动）。
 - [ ] 真机验收记录补充到本文件。
@@ -189,7 +189,7 @@ iOS 模拟器由 CI 启动并截图，界面与安全区正常：
 ## 发布记录
 
 - Release：[Faraway v0.1.1](https://github.com/Phanstal/Faraway/releases/tag/v0.1.1)
-- Release workflow：[run 41164043091](https://github.com/Phanstal/Faraway/actions/runs/41164043091)，Android APK、未签名 IPA、模拟器 zip 全部构建并发布成功。
-- CI：[run 41163996500](https://github.com/Phanstal/Faraway/actions/runs/41163996500)，Web / Android / iOS 三个 job 全部成功。
+- Release workflow：[run 41165969359](https://github.com/Phanstal/Faraway/actions/runs/41165969359)，Android APK、未签名 IPA、模拟器 zip 全部构建并发布成功。
+- CI：[run 41165955195](https://github.com/Phanstal/Faraway/actions/runs/41165955195)，Web / Android / iOS 三个 job 全部成功。
 - 本地 Android 验收：API 33 模拟器，debug APK 安装成功；通知权限弹窗、排期、后台恢复、完整循环、返回键与持久化已验证。
 - iOS：模拟器构建与启动截图通过；真机安装需要用户自己的 Apple 签名，未在本机验证。
