@@ -168,6 +168,7 @@ open App.xcworkspace
 - 欢迎页、专注页、洞察页、设置页在 1080 × 2400 下安全区正常；页面可滚动。
 - 返回键层级与 0.1.2 一致：设置/洞察 → 专注 → 桌面；欢迎页返回 → 专注页。
 
+![Android 欢迎页](screenshots/android-landing.png)
 ![Android 专注页](screenshots/android-focus.png)
 ![Android 专注进行中](screenshots/android-focus-running.png)
 ![Android 停止确认](screenshots/android-stop-confirm.png)
@@ -195,16 +196,24 @@ iOS 模拟器由 CI 启动并截图，界面与安全区正常：
 
 ## 发布产物验收
 
-- [ ] GitHub Release 包含 APK、未签名 IPA、模拟器 zip、SHA256SUMS.txt。
-- [ ] 所有文件的 SHA-256 与 `SHA256SUMS.txt` 一致。
+- [x] GitHub Release 包含 APK、未签名 IPA、模拟器 zip、SHA256SUMS.txt（Release #41324911720）。
+- [x] 所有文件的 SHA-256 与 `SHA256SUMS.txt` 一致；本地重新计算后完全匹配。
 - [x] APK 安装到 Android 13 模拟器并成功启动；包内版本为 `0.1.3` / `4`，初始计时器显示 `20:00`。
-- [ ] 未签名 IPA 能被重签工具识别（不要求直接安装；当前只验证了 Payload/App.app 结构完整）。
-- [ ] 模拟器 zip 能在 macOS Xcode Simulator 中启动（CI 已对同源 Debug 模拟器包做启动截图，Release zip 未单独启动）。
+- [x] 未签名 IPA 解包后 `Payload/App.app`、可执行文件、`Info.plist` 与网页资源完整；`CFBundleShortVersionString 0.1.3`、build 4；未实际进行重签。
+- [ ] 模拟器 zip 能在 macOS Xcode Simulator 中启动（CI 已对同源 Debug 模拟器包做启动截图，Release zip 因本地无 Mac 未单独启动）。
 - [ ] 真机验收记录补充到本文件。
+
+发布产物实测：
+
+| 文件                              | 大小      | SHA-256                                                            |
+| --------------------------------- | --------- | ------------------------------------------------------------------ |
+| `Faraway-0.1.3-android-debug.apk` | 5,317,693 | `5eba5c6f2feb04de42a4d4160b90f76192a9de908b99293f8cd656482c8731b9` |
+| `Faraway-0.1.3-ios-unsigned.ipa`  | 1,413,119 | `52aa0be0bd60b2c55e4965afdfb5d88e509dc263ac557a7f5ffb948bebb6952a` |
+| `Faraway-0.1.3-ios-simulator.zip` | 2,010,411 | `df5ab2ae5a2f31a2081b4837ad0031385ca05cd2f559a7184755ca91416966df` |
 
 ## 发布记录
 
-- Release：[Faraway v0.1.3](https://github.com/Phanstal/Faraway/releases/tag/v0.1.3)（[RELEASE_RUN_LINK]）
+- Release：[Faraway v0.1.3](https://github.com/Phanstal/Faraway/releases/tag/v0.1.3)（[Release #41324911720](https://github.com/Phanstal/Faraway/actions/runs/41324911720)）
 - CI：[run 41324146163](https://github.com/Phanstal/Faraway/actions/runs/41324146163)
 - 本地 Android 验收：API 33 模拟器，`0.1.3` APK 安装成功；模式下拉、停止确认、重置、持久化与安全区已验证。
-- iOS：模拟器构建与启动截图通过；真机安装需要用户自己的 Apple 签名，未在本机验证。
+- iOS：模拟器构建、安装、启动截图通过；未签名 IPA 与 Release 模拟器包结构、版本已校验；真机安装需要用户自己的 Apple 签名，未在本机验证。

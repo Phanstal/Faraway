@@ -33,8 +33,18 @@ Figma 原型把专注时长加速为 10 秒用于演示，因此设计稿中的�
 - 本地 Web：`npm run lint`、`npm run format:check`、`npm run typecheck`、`npm test`（19 项单元测试）、`npm run test:e2e`（7 项移动端 E2E）全部通过。
 - Android：本地 API 33 模拟器安装 `0.1.3` APK，验证模式下拉、专注中切换模式、`Stop Focus` 两步确认、满 1 分钟保存（本次保存 2m）、重置数据、杀进程后恢复计时；包内 `versionCode 4` / `versionName 0.1.3`。
 - iOS：由 GitHub Actions macOS 15 runner 构建模拟器 App、安装启动并截图；未签名设备 IPA 与模拟器 zip 由 release workflow 构建。
-- CI：[CI #41324146163](https://github.com/Phanstal/Faraway/actions/runs/41324146163)。
-- Release workflow：[RELEASE_RUN_LINK]。
+- CI：[CI #41324146163](https://github.com/Phanstal/Faraway/actions/runs/41324146163) 通过。
+- Release workflow：[Release #41324911720](https://github.com/Phanstal/Faraway/actions/runs/41324911720) 通过，产物已上传并完成校验。
+
+## 发布产物
+
+| 文件                              | 大小      | SHA-256                                                            | 校验结果                                    |
+| --------------------------------- | --------- | ------------------------------------------------------------------ | ------------------------------------------- |
+| `Faraway-0.1.3-android-debug.apk` | 5,317,693 | `5eba5c6f2feb04de42a4d4160b90f76192a9de908b99293f8cd656482c8731b9` | `versionCode 4`、`versionName 0.1.3`        |
+| `Faraway-0.1.3-ios-unsigned.ipa`  | 1,413,119 | `52aa0be0bd60b2c55e4965afdfb5d88e509dc263ac557a7f5ffb948bebb6952a` | `CFBundleShortVersionString 0.1.3`、build 4 |
+| `Faraway-0.1.3-ios-simulator.zip` | 2,010,411 | `df5ab2ae5a2f31a2081b4837ad0031385ca05cd2f559a7184755ca91416966df` | `App.app` 结构完整，版本 0.1.3、build 4     |
+
+本地下载后重新计算的 SHA-256 与 `SHA256SUMS.txt` 完全一致。
 
 ## 已知限制
 
