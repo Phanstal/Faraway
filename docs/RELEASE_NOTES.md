@@ -32,8 +32,8 @@ Figma 原型把专注时长加速为 10 秒用于演示，因此设计稿中的�
 
 - 本地 Web：`npm run lint`、`npm run format:check`、`npm run typecheck`、`npm test`（19 项单元测试）、`npm run test:e2e`（7 项移动端 E2E）全部通过。
 - Android：本地 API 33 模拟器安装 `0.1.3` APK，验证模式下拉、专注中切换模式、`Stop Focus` 两步确认、满 1 分钟保存（本次保存 2m）、重置数据、杀进程后恢复计时；包内 `versionCode 4` / `versionName 0.1.3`。
-- iOS：由 GitHub Actions macOS 14 runner 构建模拟器 App、安装启动并截图；未签名设备 IPA 与模拟器 zip 由 release workflow 构建。
-- CI：[CI_RUN_LINK]。
+- iOS：由 GitHub Actions macOS 15 runner 构建模拟器 App、安装启动并截图；未签名设备 IPA 与模拟器 zip 由 release workflow 构建。
+- CI：[CI #41323476011](https://github.com/Phanstal/Faraway/actions/runs/41323476011)。
 - Release workflow：[RELEASE_RUN_LINK]。
 
 ## 已知限制

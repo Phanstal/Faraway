@@ -2,7 +2,7 @@
 
 ## 验收范围
 
-本清单覆盖 Android、iOS 和 Web 三个运行面。Android 已在本地 API 33 模拟器完成 0.1.3 的界面与关键交互验收；iOS 模拟器由 GitHub Actions 的 macOS 14 runner 构建、安装并启动，但本地没有 Mac，因此真机安装与运行仍需在 iPhone 或 Mac 上补充验证。
+本清单覆盖 Android、iOS 和 Web 三个运行面。Android 已在本地 API 33 模拟器完成 0.1.3 的界面与关键交互验收；iOS 模拟器由 GitHub Actions 的 macOS 15 runner 构建、安装并启动，但本地没有 Mac，因此真机安装与运行仍需在 iPhone 或 Mac 上补充验证。
 
 验收目标不是只看「能打开」，而是同时确认：
 
@@ -18,7 +18,7 @@
 | 项目     | 本地验收                                            | 发布验证                                            |
 | -------- | --------------------------------------------------- | --------------------------------------------------- |
 | Android  | Android 13 / API 33 x86_64 模拟器，1080 × 2400      | GitHub Actions Ubuntu + JDK 17 + Android SDK 34     |
-| iOS      | 未在本地运行（Windows 无 Xcode）                    | GitHub Actions macOS 14：模拟器构建、启动与截图通过 |
+| iOS      | 未在本地运行（Windows 无 Xcode）                    | GitHub Actions macOS 15：模拟器构建、启动与截图通过 |
 | Web      | Microsoft Edge / Chromium，390 × 844 与 1440 × 1000 | GitHub Actions Chromium 移动端 E2E                  |
 | 应用版本 | 0.1.3（versionCode 4 / build 4）                    | 同左                                                |
 | 日期     | 2026-11-01                                          | 以 release workflow 实际运行日期为准                |
@@ -182,16 +182,16 @@ iOS 模拟器由 CI 启动并截图，界面与安全区正常：
 
 ## 自动化证据
 
-| 检查        | 命令                      | 结果                   |
-| ----------- | ------------------------- | ---------------------- |
-| 单元测试    | `npm test`                | 19 passed              |
-| 移动端 E2E  | `npm run test:e2e`        | 7 passed               |
-| 类型        | `npm run typecheck`       | passed                 |
-| Lint        | `npm run lint`            | passed                 |
-| 格式        | `npm run format:check`    | passed                 |
-| Android APK | `./gradlew assembleDebug` | BUILD SUCCESSFUL       |
-| iOS 模拟器  | GitHub Actions macOS      | 构建、启动、截图均成功 |
-| CI 全流程   | GitHub Actions            | [CI_RUN_LINK]          |
+| 检查        | 命令                      | 结果                                                                            |
+| ----------- | ------------------------- | ------------------------------------------------------------------------------- |
+| 单元测试    | `npm test`                | 19 passed                                                                       |
+| 移动端 E2E  | `npm run test:e2e`        | 7 passed                                                                        |
+| 类型        | `npm run typecheck`       | passed                                                                          |
+| Lint        | `npm run lint`            | passed                                                                          |
+| 格式        | `npm run format:check`    | passed                                                                          |
+| Android APK | `./gradlew assembleDebug` | BUILD SUCCESSFUL                                                                |
+| iOS 模拟器  | GitHub Actions macOS      | 构建、启动、截图均成功                                                          |
+| CI 全流程   | GitHub Actions            | [run 41323476011](https://github.com/Phanstal/Faraway/actions/runs/41323476011) |
 
 ## 发布产物验收
 
@@ -205,6 +205,6 @@ iOS 模拟器由 CI 启动并截图，界面与安全区正常：
 ## 发布记录
 
 - Release：[Faraway v0.1.3](https://github.com/Phanstal/Faraway/releases/tag/v0.1.3)（[RELEASE_RUN_LINK]）
-- CI：[CI_RUN_LINK]
+- CI：[run 41323476011](https://github.com/Phanstal/Faraway/actions/runs/41323476011)
 - 本地 Android 验收：API 33 模拟器，`0.1.3` APK 安装成功；模式下拉、停止确认、重置、持久化与安全区已验证。
 - iOS：模拟器构建与启动截图通过；真机安装需要用户自己的 Apple 签名，未在本机验证。
