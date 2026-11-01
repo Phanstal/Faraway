@@ -70,7 +70,7 @@ jobs:
 
   ios:
     name: Build iOS artifacts
-    runs-on: macos-14
+    runs-on: macos-15
     steps:
       - name: Check out
         uses: actions/checkout@v4
