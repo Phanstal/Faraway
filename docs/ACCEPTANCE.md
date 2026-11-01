@@ -19,7 +19,7 @@
 | Android  | Android 13 / API 33 x86_64 模拟器，1080 × 2400      | GitHub Actions Ubuntu + JDK 17 + Android SDK 34     |
 | iOS      | 未在本地运行（Windows 无 Xcode）                    | GitHub Actions macOS 14：模拟器构建、启动与截图通过 |
 | Web      | Microsoft Edge / Chromium，390 × 844 与 1440 × 1000 | GitHub Actions Chromium 移动端 E2E                  |
-| 应用版本 | 0.1.1（versionCode 2 / build 2）                    | 同左                                                |
+| 应用版本 | 0.1.2（versionCode 3 / build 3）                    | 同左                                                |
 | 日期     | 2026-10-31                                          | 以 release workflow 实际运行日期为准                |
 
 ## Android 验收步骤
@@ -106,7 +106,7 @@
 
 ### I1 模拟器运行
 
-- 下载 `Faraway-0.1.1-ios-simulator.zip`，解压得到 `App.app`。
+- 下载 `Faraway-0.1.2-ios-simulator.zip`，解压得到 `App.app`。
 - 打开 Xcode Simulator，把 `App.app` 拖入模拟器；或从源码运行：
 
 ```bash
@@ -127,7 +127,7 @@ open App.xcworkspace
 - 在 Xcode 打开 `ios/App/App.xcworkspace`。
 - 选择 App target → Signing & Capabilities，选择自己的 Team，修改唯一 Bundle Identifier。
 - 连接 iPhone，选择设备 Run。
-- 或者用 Sideloadly / AltStore 重签 `Faraway-0.1.1-ios-unsigned.ipa`。
+- 或者用 Sideloadly / AltStore 重签 `Faraway-0.1.2-ios-unsigned.ipa`。
 - 检查启动图、状态栏、安全区、触感反馈、本地持久化与通知。
 - 杀进程后重新打开，数据仍在。
 
@@ -188,7 +188,7 @@ iOS 模拟器由 CI 启动并截图，界面与安全区正常：
 
 ## 发布记录
 
-- Release：[Faraway v0.1.1](https://github.com/Phanstal/Faraway/releases/tag/v0.1.1)
+- Release：[Faraway v0.1.2](https://github.com/Phanstal/Faraway/releases/tag/v0.1.2)
 - Release workflow：[run 41165969359](https://github.com/Phanstal/Faraway/actions/runs/41165969359)，Android APK、未签名 IPA、模拟器 zip 全部构建并发布成功。
 - CI：[run 41165955195](https://github.com/Phanstal/Faraway/actions/runs/41165955195)，Web / Android / iOS 三个 job 全部成功。
 - 本地 Android 验收：API 33 模拟器，debug APK 安装成功；通知权限弹窗、排期、后台恢复、完整循环、返回键与持久化已验证。

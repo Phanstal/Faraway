@@ -14,9 +14,9 @@
 
 | 平台       | 文件                                                                                                                              | 说明                                           |
 | ---------- | --------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
-| Android    | [`Faraway-0.1.1-android-debug.apk`](https://github.com/Phanstal/Faraway/releases/latest/download/Faraway-0.1.1-android-debug.apk) | 可直接安装的 debug 签名 APK                    |
-| iOS        | [`Faraway-0.1.1-ios-unsigned.ipa`](https://github.com/Phanstal/Faraway/releases/latest/download/Faraway-0.1.1-ios-unsigned.ipa)   | 未签名 IPA，需要使用自己的 Apple ID 重签后安装 |
-| iOS 模拟器 | [`Faraway-0.1.1-ios-simulator.zip`](https://github.com/Phanstal/Faraway/releases/latest/download/Faraway-0.1.1-ios-simulator.zip) | 需要 macOS + Xcode，解压后拖入模拟器           |
+| Android    | [`Faraway-0.1.2-android-debug.apk`](https://github.com/Phanstal/Faraway/releases/latest/download/Faraway-0.1.2-android-debug.apk) | 可直接安装的 debug 签名 APK                    |
+| iOS        | [`Faraway-0.1.2-ios-unsigned.ipa`](https://github.com/Phanstal/Faraway/releases/latest/download/Faraway-0.1.2-ios-unsigned.ipa)   | 未签名 IPA，需要使用自己的 Apple ID 重签后安装 |
+| iOS 模拟器 | [`Faraway-0.1.2-ios-simulator.zip`](https://github.com/Phanstal/Faraway/releases/latest/download/Faraway-0.1.2-ios-simulator.zip) | 需要 macOS + Xcode，解压后拖入模拟器           |
 | 校验       | [`SHA256SUMS.txt`](https://github.com/Phanstal/Faraway/releases/latest/download/SHA256SUMS.txt)                                   | 所有发布文件的 SHA-256                         |
 
 ### Android 安装
