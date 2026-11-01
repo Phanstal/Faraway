@@ -22,6 +22,7 @@ import {
   finishFocus,
   normalizeSnapshot,
   reconcileSnapshot,
+  stopFocus as stopFocusSnapshot,
 } from '../domain/snapshot';
 import { farawayRepository } from '../infra/farawayRepository';
 import { breakFeedback, completeFeedback, tapFeedback } from '../platform/feedback';
@@ -56,6 +57,8 @@ export interface FarawayController {
   resumeFocus: () => void;
   startBreak: () => void;
   skipBreak: () => void;
+  stopFocus: () => void;
+  resetAll: () => void;
   handlePrimary: () => void;
   setRemindersEnabled: (enabled: boolean) => void;
   requestNotifications: () => Promise<void>;
@@ -326,6 +329,21 @@ export function useFaraway(): FarawayController {
     void cancelEyeBreakNotification();
   }, []);
 
+  const stopFocus = useCallback(() => {
+    const stoppedAt = Date.now();
+    setSnapshot((current) => (current ? stopFocusSnapshot(current, stoppedAt) : current));
+    void cancelEyeBreakNotification();
+    void tapFeedback();
+  }, []);
+
+  const resetAll = useCallback(() => {
+    const initial = createInitialSnapshot();
+    setSnapshot(initial);
+    void farawayRepository.save(initial);
+    void cancelEyeBreakNotification();
+    void tapFeedback();
+  }, []);
+
   const handlePrimary = useCallback(() => {
     const currentMode = snapshotRef.current?.timer.mode ?? 'idle';
     if (currentMode === 'idle' || currentMode === 'complete' || currentMode === 'break') {
@@ -452,6 +470,8 @@ export function useFaraway(): FarawayController {
     resumeFocus,
     startBreak,
     skipBreak,
+    stopFocus,
+    resetAll,
     handlePrimary,
     setRemindersEnabled,
     requestNotifications,

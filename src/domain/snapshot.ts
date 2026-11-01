@@ -137,6 +137,39 @@ export function finishFocus(snapshot: FarawaySnapshot, endedAt: number): Faraway
   };
 }
 
+export function stopFocus(snapshot: FarawaySnapshot, stoppedAt: number): FarawaySnapshot {
+  const timer = snapshot.timer;
+  if (timer.mode !== 'focus' && timer.mode !== 'paused') return snapshot;
+
+  const activeMode =
+    snapshot.focusModes.find((mode) => mode.id === snapshot.activeModeId) ?? snapshot.focusModes[0];
+  const remaining =
+    timer.mode === 'focus' && timer.endsAt !== null
+      ? Math.max(0, Math.ceil((timer.endsAt - stoppedAt) / 1000))
+      : Math.max(0, timer.remaining);
+  const elapsedSeconds = Math.max(0, FOCUS_SECONDS - remaining);
+
+  let sessions = snapshot.sessions;
+  if (elapsedSeconds >= 60 && activeMode) {
+    const session: FocusSession = {
+      id: `focus-stop-${stoppedAt}`,
+      endedAt: stoppedAt,
+      modeId: activeMode.id,
+      modeLabel: activeMode.label,
+      modeColor: activeMode.color,
+      focusMinutes: Math.max(1, Math.floor(elapsedSeconds / 60)),
+    };
+    const alreadyRecorded = sessions.some((item) => item.id === session.id);
+    if (!alreadyRecorded) sessions = [...sessions, session];
+  }
+
+  return {
+    ...snapshot,
+    timer: { mode: 'idle', remaining: FOCUS_SECONDS, endsAt: null },
+    sessions,
+  };
+}
+
 function normalizeFocusModes(value: unknown): FocusMode[] {
   if (!Array.isArray(value) || value.length === 0) {
     return DEFAULT_FOCUS_MODES.map((mode) => ({ ...mode }));

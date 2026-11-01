@@ -14,9 +14,9 @@
 
 | 平台       | 文件                                                                                                                              | 说明                                           |
 | ---------- | --------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
-| Android    | [`Faraway-0.1.2-android-debug.apk`](https://github.com/Phanstal/Faraway/releases/latest/download/Faraway-0.1.2-android-debug.apk) | 可直接安装的 debug 签名 APK                    |
-| iOS        | [`Faraway-0.1.2-ios-unsigned.ipa`](https://github.com/Phanstal/Faraway/releases/latest/download/Faraway-0.1.2-ios-unsigned.ipa)   | 未签名 IPA，需要使用自己的 Apple ID 重签后安装 |
-| iOS 模拟器 | [`Faraway-0.1.2-ios-simulator.zip`](https://github.com/Phanstal/Faraway/releases/latest/download/Faraway-0.1.2-ios-simulator.zip) | 需要 macOS + Xcode，解压后拖入模拟器           |
+| Android    | [`Faraway-0.1.3-android-debug.apk`](https://github.com/Phanstal/Faraway/releases/latest/download/Faraway-0.1.3-android-debug.apk) | 可直接安装的 debug 签名 APK                    |
+| iOS        | [`Faraway-0.1.3-ios-unsigned.ipa`](https://github.com/Phanstal/Faraway/releases/latest/download/Faraway-0.1.3-ios-unsigned.ipa)   | 未签名 IPA，需要使用自己的 Apple ID 重签后安装 |
+| iOS 模拟器 | [`Faraway-0.1.3-ios-simulator.zip`](https://github.com/Phanstal/Faraway/releases/latest/download/Faraway-0.1.3-ios-simulator.zip) | 需要 macOS + Xcode，解压后拖入模拟器           |
 | 校验       | [`SHA256SUMS.txt`](https://github.com/Phanstal/Faraway/releases/latest/download/SHA256SUMS.txt)                                   | 所有发布文件的 SHA-256                         |
 
 ### Android 安装
@@ -40,15 +40,19 @@
 ## 功能
 
 - **专注计时**：默认 20 分钟专注，环形进度和剩余时间同时呈现；可随时暂停、继续。
-- **20 秒眼休息**：专注结束后进入 `EYE BREAK`，提示看向约 20 米外；可开始休息、跳过，或直接开始下一轮专注。
-- **专注模式**：Work / Study / Creative 三种模式，各有独立的柔和配色；设置中可改名、删除，最多保留 3 个，至少保留 1 个。
-- **专注洞察**：总时长、今日时长、按模式拆分，以及 Day / Week / Month 三种趋势视图；空状态会引导完成第一轮专注。
+- **模式下拉**：计时器上方以紧凑下拉切换 Work / Study / Creative，专注进行中也可以直接换模式，配色会同步变化。
+- **20 秒眼休息**：专注结束后进入 `EYE BREAK`，提示看向约 20 米外；主按钮变为 `Start Break`，也可以跳过休息或直接开始下一轮。
+- **停止本轮**：专注中或暂停时可点 `Stop Focus`，经过两步确认后结束本轮；已专注满 1 分钟会按整分钟写入历史。
+- **专注洞察**：总时长、今日时长、按模式拆分，以及 Day / Week / Month 三种趋势视图；趋势柱按模式颜色堆叠，空状态会引导完成第一轮专注。
+- **模式管理**：设置中可改名、删除，最多保留 3 个、至少保留 1 个；删除当前模式后会自动切换。
+- **重置数据**：设置页提供 `Reset Faraway`，经过两步确认后清空本机历史、模式与偏好。
 - **原生提醒**：Android / iOS 在专注结束前请求通知权限，并在计时结束时发出本地通知；设置中可关闭提醒。
 - **原生手感**：开始、暂停、完成和进入休息时有轻微触感反馈；Android 返回键按「设置/洞察 → 专注」逐层返回，专注页返回则退到后台。
 - **本地持久化**：Android 使用 SharedPreferences，iOS 使用 UserDefaults，Web 使用 localStorage；刷新、杀进程或重启应用后，计时状态和记录仍在。
 - **安全区适配**：适配 iPhone 刘海/灵动岛、Home Indicator 和 Android 状态栏/手势条，并锁定竖屏。
 
-![专注模式](docs/screenshots/web-landing.png)
+![欢迎页](docs/screenshots/web-landing.png)
+![专注进行中](docs/screenshots/web-focus-running.png)
 ![眼休息](docs/screenshots/web-break-ready.png)
 ![专注洞察](docs/screenshots/web-insights.png)
 ![设置](docs/screenshots/web-settings.png)
@@ -76,7 +80,7 @@ iOS 模拟器运行（GitHub Actions macOS 14，iPhone 15 Pro）：
 
 ## 设计来源与实现差异
 
-界面依据提供的 [Figma Make 原型](https://www.figma.com/make/mup9OJMdY4TlgWJ7mDLIFF/Faraway-iOS-App-Design) 复刻，保留了原型的浅蓝、冰蓝、薄荷绿配色，Inter 字体，圆形计时器，底部双标签，以及欢迎页、专注、眼休息、完成、洞察和设置六个界面。
+界面依据提供的 [Figma Make 原型](https://www.figma.com/make/mup9OJMdY4TlgWJ7mDLIFF/Faraway-iOS-App-Design) 复刻，保留了原型的浅蓝、冰蓝、薄荷绿配色，Inter 字体，圆形计时器，计时器上方的模式下拉，底部双标签，以及欢迎页、专注、眼休息、完成、洞察和设置六个界面。0.1.3 按原型当前版本重做了专注页、模式切换、停止确认、重置数据和洞察堆叠柱状图。
 
 原型为了演示把专注时长加速成 **10 秒**，截图中的计时器显示 `00:10`。正式版按 20-20-20 法则恢复为 **20 分钟**，眼休息保持 **20 秒**，因此专注页初始显示 `20:00`。这是唯一有意的行为调整，其余文案、层级与交互节奏按原型实现。
 
@@ -156,8 +160,8 @@ open App.xcworkspace
 
 ## 测试
 
-- `tests/unit`：计时格式、时长统计、本地日界线、图表聚合、快照迁移、暂停/恢复、会话去重。
-- `tests/e2e`：欢迎页、完整 20-20-20 流程、暂停/恢复、设置中的模式增删改、从完成态开始下一轮、刷新持久化。
+- `tests/unit`：计时格式、时长统计、本地日界线、图表聚合与模式分段、快照迁移、暂停/恢复、停止本轮、会话去重。
+- `tests/e2e`：欢迎页、完整 20-20-20 流程、暂停/恢复、模式下拉、停止本轮、重置数据、设置中的模式增删改、从完成态开始下一轮、刷新持久化。
 - CI 同时验证 Web 检查、Android debug APK 构建、iOS 模拟器构建与启动截图。
 
 ## 目录

@@ -6,6 +6,7 @@ import {
   finishFocus,
   normalizeSnapshot,
   reconcileSnapshot,
+  stopFocus,
 } from '../../src/domain/snapshot';
 
 function snapshot(overrides: Partial<FarawaySnapshot> = {}): FarawaySnapshot {
@@ -61,6 +62,45 @@ describe('snapshot normalization', () => {
     expect(second.sessions).toHaveLength(1);
     expect(first.timer.mode).toBe('break-ready');
     expect(first.timer.remaining).toBe(BREAK_SECONDS);
+  });
+});
+
+describe('stopping a focus session', () => {
+  it('saves elapsed minutes when more than a minute was focused', () => {
+    const stoppedAt = Date.now();
+    const result = stopFocus(
+      snapshot({
+        timer: { mode: 'focus', remaining: FOCUS_SECONDS - 70, endsAt: stoppedAt + 1130_000 },
+        activeModeId: 'study',
+      }),
+      stoppedAt,
+    );
+
+    expect(result.timer).toEqual({
+      mode: 'idle',
+      remaining: FOCUS_SECONDS,
+      endsAt: null,
+    });
+    expect(result.sessions).toHaveLength(1);
+    expect(result.sessions[0]).toMatchObject({
+      modeId: 'study',
+      modeLabel: 'Study',
+      focusMinutes: 1,
+      endedAt: stoppedAt,
+    });
+  });
+
+  it('does not add sessions shorter than one minute', () => {
+    const stoppedAt = Date.now();
+    const result = stopFocus(
+      snapshot({
+        timer: { mode: 'paused', remaining: FOCUS_SECONDS - 30, endsAt: null },
+      }),
+      stoppedAt,
+    );
+
+    expect(result.timer.mode).toBe('idle');
+    expect(result.sessions).toEqual([]);
   });
 });
 

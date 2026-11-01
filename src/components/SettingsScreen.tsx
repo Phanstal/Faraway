@@ -45,10 +45,12 @@ export function SettingsScreen({ controller, onBack }: SettingsScreenProps) {
     removeMode,
     setRemindersEnabled,
     requestNotifications,
+    resetAll,
   } = controller;
   const [addingMode, setAddingMode] = useState(false);
   const [newModeName, setNewModeName] = useState('');
   const [addError, setAddError] = useState<string | null>(null);
+  const [resetStep, setResetStep] = useState<0 | 1 | 2>(0);
   const notificationCopy = NOTIFICATION_COPY[notificationPermission];
 
   const submitMode = () => {
@@ -193,7 +195,65 @@ export function SettingsScreen({ controller, onBack }: SettingsScreenProps) {
             not upload your activity.
           </p>
         </div>
+
+        <div className="reset-section">
+          <strong>Reset Faraway</strong>
+          <p>Clear your focus history, modes, and preferences.</p>
+          <button type="button" onClick={() => setResetStep(1)}>
+            Reset all data
+          </button>
+        </div>
       </div>
+
+      {resetStep > 0 && (
+        <div className="confirm-overlay" role="presentation" onClick={() => setResetStep(0)}>
+          <div
+            className="confirm-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="reset-title"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <span className="confirm-icon reset-icon" aria-hidden="true">
+              <span />
+            </span>
+            <span className="confirm-title" id="reset-title">
+              {resetStep === 1 ? 'Reset Faraway?' : 'Are you absolutely sure?'}
+            </span>
+            <span className="confirm-copy">
+              {resetStep === 1
+                ? 'Your focus history, custom modes, and preferences will be removed from this device.'
+                : 'This action cannot be undone. All locally stored Faraway data will be permanently cleared.'}
+            </span>
+            <div className="confirm-actions">
+              <button type="button" className="cancel-button" onClick={() => setResetStep(0)}>
+                Cancel
+              </button>
+              {resetStep === 1 ? (
+                <button
+                  type="button"
+                  className="confirm-stop-button"
+                  onClick={() => setResetStep(2)}
+                >
+                  Continue
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  className="confirm-stop-button final-reset"
+                  onClick={() => {
+                    resetAll();
+                    setResetStep(0);
+                    onBack();
+                  }}
+                >
+                  Reset Everything
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

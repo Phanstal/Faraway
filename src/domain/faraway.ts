@@ -77,18 +77,16 @@ export function modeTotals(sessions: FocusSession[], focusModes: FocusMode[]): M
     });
   });
 
-  focusModes.forEach((mode) => {
-    if (!totals.has(mode.id)) {
-      totals.set(mode.id, {
-        id: mode.id,
-        label: mode.label,
-        color: mode.color,
-        minutes: 0,
-      });
-    }
+  const ordered = focusModes.map((mode) => {
+    const total = totals.get(mode.id);
+    if (total) return { ...total, label: mode.label, color: mode.color };
+    return { id: mode.id, label: mode.label, color: mode.color, minutes: 0 };
   });
+  const extra = Array.from(totals.values()).filter(
+    (total) => !focusModes.some((mode) => mode.id === total.id),
+  );
 
-  return Array.from(totals.values());
+  return [...ordered, ...extra];
 }
 
 export function buildChartData(
@@ -100,13 +98,14 @@ export function buildChartData(
     return Array.from({ length: 6 }, (_, index) => {
       const start = new Date(now.getFullYear(), now.getMonth() - (5 - index), 1);
       const end = new Date(start.getFullYear(), start.getMonth() + 1, 1);
-      const minutes = sumSessionsInWindow(sessions, start.getTime(), end.getTime());
-      return {
-        label: start.toLocaleDateString(chartLocale, { month: 'short' }),
-        fullLabel: start.toLocaleDateString(chartLocale, { month: 'long', year: 'numeric' }),
-        minutes,
-        current: index === 5,
-      };
+      return summarizeWindow(
+        sessions,
+        start.getTime(),
+        end.getTime(),
+        start.toLocaleDateString(chartLocale, { month: 'short' }),
+        start.toLocaleDateString(chartLocale, { month: 'long', year: 'numeric' }),
+        index === 5,
+      );
     });
   }
 
@@ -120,16 +119,14 @@ export function buildChartData(
       const start = new Date(end);
       start.setDate(start.getDate() - 6);
       start.setHours(0, 0, 0, 0);
-      const minutes = sumSessionsInWindow(sessions, start.getTime(), end.getTime());
-      return {
-        label: `${start.getMonth() + 1}/${start.getDate()}`,
-        fullLabel: `Week of ${start.toLocaleDateString(chartLocale, {
-          month: 'short',
-          day: 'numeric',
-        })}`,
-        minutes,
-        current: index === 5,
-      };
+      return summarizeWindow(
+        sessions,
+        start.getTime(),
+        end.getTime(),
+        `${start.getMonth() + 1}/${start.getDate()}`,
+        `Week of ${start.toLocaleDateString(chartLocale, { month: 'short', day: 'numeric' })}`,
+        index === 5,
+      );
     });
   }
 
@@ -139,24 +136,44 @@ export function buildChartData(
     date.setDate(date.getDate() - (6 - index));
     const next = new Date(date);
     next.setDate(next.getDate() + 1);
-    const minutes = sumSessionsInWindow(sessions, date.getTime(), next.getTime());
-    return {
-      label: date.toLocaleDateString(chartLocale, { weekday: 'narrow' }),
-      fullLabel: date.toLocaleDateString(chartLocale, {
+    return summarizeWindow(
+      sessions,
+      date.getTime(),
+      next.getTime(),
+      date.toLocaleDateString(chartLocale, { weekday: 'narrow' }),
+      date.toLocaleDateString(chartLocale, {
         weekday: 'long',
         month: 'short',
         day: 'numeric',
       }),
-      minutes,
-      current: index === 6,
-    };
+      index === 6,
+    );
   });
 }
 
-function sumSessionsInWindow(sessions: FocusSession[], start: number, end: number): number {
-  return sessions
-    .filter((session) => session.endedAt >= start && session.endedAt < end)
-    .reduce((total, session) => total + sessionMinutes(session), 0);
+function summarizeWindow(
+  sessions: FocusSession[],
+  start: number,
+  end: number,
+  label: string,
+  fullLabel: string,
+  current: boolean,
+): ChartPoint {
+  const matching = sessions.filter((session) => session.endedAt >= start && session.endedAt < end);
+  const segments = FOCUS_COLORS.map((color) => ({
+    color,
+    minutes: matching
+      .filter((session) => session.modeColor === color)
+      .reduce((total, session) => total + sessionMinutes(session), 0),
+  })).filter((segment) => segment.minutes > 0);
+
+  return {
+    label,
+    fullLabel,
+    minutes: matching.reduce((total, session) => total + sessionMinutes(session), 0),
+    current,
+    segments,
+  };
 }
 
 export function localDayKey(date: Date): string {

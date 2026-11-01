@@ -103,7 +103,35 @@ describe('chart data', () => {
     const data = buildChartData(sessions, 'day', now);
     expect(data).toHaveLength(7);
     expect(data[6]).toMatchObject({ minutes: 20, current: true, label: 'S' });
+    expect(data[6].segments).toEqual([{ color: 'work', minutes: 20 }]);
+    expect(data[5].segments).toEqual([{ color: 'work', minutes: 20 }]);
     expect(data[5].minutes).toBe(20);
+  });
+
+  it('splits each bucket into mode-colored segments', () => {
+    const mixed = [
+      session(new Date(2026, 9, 31, 9, 0, 0).getTime(), { focusMinutes: 20 }),
+      session(new Date(2026, 9, 31, 10, 0, 0).getTime(), {
+        id: 'study',
+        modeId: 'study',
+        modeLabel: 'Study',
+        modeColor: 'study',
+        focusMinutes: 15,
+      }),
+      session(new Date(2026, 9, 31, 11, 0, 0).getTime(), {
+        id: 'creative',
+        modeId: 'creative',
+        modeLabel: 'Creative',
+        modeColor: 'creative',
+        focusMinutes: 10,
+      }),
+    ];
+
+    expect(buildChartData(mixed, 'day', now)[6].segments).toEqual([
+      { color: 'work', minutes: 20 },
+      { color: 'study', minutes: 15 },
+      { color: 'creative', minutes: 10 },
+    ]);
   });
 
   it('builds six week buckets and six month buckets', () => {

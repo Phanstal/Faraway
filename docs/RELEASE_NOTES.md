@@ -1,44 +1,40 @@
-# Faraway v0.1.2 发布说明
+# Faraway v0.1.3 发布说明
 
-维护版本：应用版本升级到 `0.1.2`（Android `versionCode 3`，iOS build 3）。功能与 0.1.1 保持一致，仍为 **20 分钟专注 / 20 秒眼休息**；本次没有界面或交互行为变化。
+界面版本：按 Figma Make **当前原型**重做专注页、模式切换、停止确认、重置数据与洞察图表。20 分钟专注 / 20 秒眼休息的正式版节奏保持不变；应用版本升级到 `0.1.3`（Android `versionCode 4`，iOS build 4）。
 
 ## 本次变更
 
-- Android `versionCode` 从 2 升至 3，`versionName` 更新为 `0.1.2`。
-- iOS `CFBundleShortVersionString` 更新为 `0.1.2`，build 从 2 升至 3。
-- npm 包版本更新为 `0.1.2`，重新构建并发布 Android / iOS / 模拟器产物。
-- 保留 20 分钟专注、20 秒休息的回归测试。
+- **专注页重排**：模式选择移到计时器上方，改为紧凑的 `Work` 下拉；专注进行中仍可切换模式。页面高度、间距和字号按原型重新对齐。
+- **开始休息**：专注结束后主按钮显示 `Start Break`，休息状态仍可 `Skip break` 或直接开始下一轮。
+- **停止本轮**：专注中或暂停时新增 `Stop Focus`，两步确认后结束；已专注满 1 分钟会按整分钟写入历史，不足 1 分钟不产生记录。
+- **重置数据**：设置页新增 `Reset Faraway` / `Reset all data`，经过两次确认后清空本机历史、模式与偏好，并回到专注页。
+- **洞察图表**：模式拆分改为紧凑卡片行；趋势柱按模式颜色堆叠，Day / Week / Month 都使用同一套堆叠规则。
+- **版本**：npm `0.1.3`，Android `versionCode 4` / `versionName 0.1.3`，iOS `CFBundleShortVersionString 0.1.3` / build 4。
 
-## 功能
+## 保持不变
 
-- 欢迎页：品牌文案、随机护眼提示与 5 秒自动进入计时器。
-- 20-20-20 专注循环：20 分钟专注、20 秒眼休息、完成页；支持暂停、继续、跳过休息和开始下一轮。
-- 专注模式：Work / Study / Creative 三套配色，最多 3 个模式，可改名、删除、新增。
-- 专注洞察：总时长、今日时长、模式拆分，以及 Day / Week / Month 趋势图；包含空状态。
-- 原生本地通知：专注结束时提醒抬头看远处；首次开始专注时请求权限，设置页可查看状态。
-- 触感反馈：开始、暂停、休息和完成使用原生 Haptics。
-- 本地持久化：Android SharedPreferences、iOS UserDefaults、Web localStorage；重启后恢复计时与记录。
-- 原生适配：安全区、竖屏锁定、Android 分层返回。
+- 正式版专注 **20 分钟**、眼休息 **20 秒**，不使用原型为演示设置的 10 秒计时。
+- Android / iOS 本地通知、原生触感、安全区、竖屏锁定与 Android 分层返回。
+- 本地持久化：Android SharedPreferences、iOS UserDefaults、Web localStorage；没有账号、云端或遥测。
 
 ## 与原型的有意差异
 
-Figma 原型把专注时长加速为 10 秒用于演示，因此设计稿中的计时器显示 `00:10`。正式版恢复为真实的 **20 分钟**，让应用可以直接遵循 20-20-20 法则；眼休息保持 **20 秒**。其余视觉、文案和交互按原型实现。
+Figma 原型把专注时长加速为 10 秒用于演示，因此设计稿中的计时器显示 `00:10`。正式版恢复为真实的 **20 分钟**，让应用可以直接遵循 20-20-20 法则；眼休息保持 **20 秒**。其余视觉、文案和交互按原型当前版本实现。
 
 ## 下载文件
 
-- [Faraway-0.1.2-android-debug.apk](https://github.com/Phanstal/Faraway/releases/download/v0.1.2/Faraway-0.1.2-android-debug.apk) — Android debug 签名 APK，可直接侧载。
-- [Faraway-0.1.2-ios-unsigned.ipa](https://github.com/Phanstal/Faraway/releases/download/v0.1.2/Faraway-0.1.2-ios-unsigned.ipa) — iOS 未签名 IPA，需要自行用 Apple ID 重签。
-- [Faraway-0.1.2-ios-simulator.zip](https://github.com/Phanstal/Faraway/releases/download/v0.1.2/Faraway-0.1.2-ios-simulator.zip) — iOS 模拟器 App，需要 macOS + Xcode。
-- [SHA256SUMS.txt](https://github.com/Phanstal/Faraway/releases/download/v0.1.2/SHA256SUMS.txt) — 校验和。
+- [Faraway-0.1.3-android-debug.apk](https://github.com/Phanstal/Faraway/releases/download/v0.1.3/Faraway-0.1.3-android-debug.apk) — Android debug 签名 APK，可直接侧载。
+- [Faraway-0.1.3-ios-unsigned.ipa](https://github.com/Phanstal/Faraway/releases/download/v0.1.3/Faraway-0.1.3-ios-unsigned.ipa) — iOS 未签名 IPA，需要自行用 Apple ID 重签。
+- [Faraway-0.1.3-ios-simulator.zip](https://github.com/Phanstal/Faraway/releases/download/v0.1.3/Faraway-0.1.3-ios-simulator.zip) — iOS 模拟器 App，需要 macOS + Xcode。
+- [SHA256SUMS.txt](https://github.com/Phanstal/Faraway/releases/download/v0.1.3/SHA256SUMS.txt) — 校验和。
 
 ## 验证情况
 
-- CI：[run 41297388023](https://github.com/Phanstal/Faraway/actions/runs/41297388023)，Web / Android / iOS 三个 job 全部成功。
-- Release workflow：[run 41297391378](https://github.com/Phanstal/Faraway/actions/runs/41297391378)，APK、未签名 IPA、模拟器 zip 与 SHA256SUMS.txt 全部上传成功。
-- Web：lint、格式、类型检查、16 项单元测试、5 项移动端 E2E 全部通过；E2E 覆盖 20 分钟专注和 20 秒休息。
-- Android：发布 APK 安装到 API 33 模拟器，包内 `versionCode 3` / `versionName 0.1.2`，初始计时器显示 `20:00`。
-- iOS：GitHub Actions macOS 14 runner 构建、安装、启动并截图模拟器 App；设备目标由 release workflow 构建未签名 IPA，包内版本为 `0.1.2` / build `3`。本地环境为 Windows，无法在真机上运行验证；真机安装需要用户自己的 Apple 签名。
-- 发布文件：APK、IPA、模拟器 zip 与 SHA256SUMS.txt 已重新下载并核对，SHA-256 与清单一致；Android 发布 APK 的 SHA-256 为 `c1065e682afd492b2dccff82b707f53eb494e56fd159eb418e28486c9ffaf9fc`。
+- 本地 Web：`npm run lint`、`npm run format:check`、`npm run typecheck`、`npm test`（19 项单元测试）、`npm run test:e2e`（7 项移动端 E2E）全部通过。
+- Android：本地 API 33 模拟器安装 `0.1.3` APK，验证模式下拉、专注中切换模式、`Stop Focus` 两步确认、满 1 分钟保存（本次保存 2m）、重置数据、杀进程后恢复计时；包内 `versionCode 4` / `versionName 0.1.3`。
+- iOS：由 GitHub Actions macOS 14 runner 构建模拟器 App、安装启动并截图；未签名设备 IPA 与模拟器 zip 由 release workflow 构建。
+- CI：[CI_RUN_LINK]。
+- Release workflow：[RELEASE_RUN_LINK]。
 
 ## 已知限制
 
@@ -57,5 +53,5 @@ sha256sum -c SHA256SUMS.txt
 或在 Windows PowerShell 中：
 
 ```powershell
-Get-FileHash .\Faraway-0.1.2-android-debug.apk -Algorithm SHA256
+Get-FileHash .\Faraway-0.1.3-android-debug.apk -Algorithm SHA256
 ```

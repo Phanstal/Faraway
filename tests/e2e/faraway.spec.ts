@@ -20,10 +20,12 @@ test('landing flows into a calm focus timer', async ({ page }) => {
   await expect(page.getByText('FOCUS TIME', { exact: true })).toBeVisible();
   await expect(page.getByText('20:00').first()).toBeVisible();
   await expect(page.getByRole('button', { name: 'Start Focus' })).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Work' })).toHaveAttribute('aria-pressed', 'true');
 
-  await page.getByRole('button', { name: 'Study' }).click();
-  await expect(page.getByRole('button', { name: 'Study' })).toHaveAttribute('aria-pressed', 'true');
+  const modeButton = page.getByRole('button', { name: 'Change focus mode' });
+  await expect(modeButton).toContainText('Work');
+  await modeButton.click();
+  await page.locator('.mode-menu button', { hasText: 'Study' }).click();
+  await expect(modeButton).toContainText('Study');
   await expect(page.locator('.focus-screen')).toHaveClass(/focus-study/);
 });
 
@@ -32,10 +34,12 @@ test('a complete 20-20-20 cycle is recorded in insights and persists', async ({ 
 
   await page.getByRole('button', { name: 'Start Focus' }).click();
   await expect(page.getByRole('button', { name: 'Pause' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Change focus mode' })).toBeVisible();
 
   await page.clock.fastForward(20 * 60 * 1000);
   await expect(page.getByRole('button', { name: 'Start Break' })).toBeVisible();
   await expect(page.getByText('Look Beyond.')).toBeVisible();
+  await expect(page.locator('.mode-selector')).toHaveClass(/mode-selector-hidden/);
 
   await page.getByRole('button', { name: 'Start Break' }).click();
   await expect(page.getByText('EYE BREAK')).toBeVisible();
@@ -50,8 +54,9 @@ test('a complete 20-20-20 cycle is recorded in insights and persists', async ({ 
   await expect(page.getByRole('heading', { name: 'Insights' })).toBeVisible();
   await expect(page.locator('.total-stat .stat-value')).toHaveText('20m');
   await expect(page.locator('.today-stat .stat-value')).toHaveText('20m');
-  await expect(page.locator('.mode-insight-card').first()).toContainText('20m');
-  await expect(page.locator('.chart .bar')).toHaveCount(7);
+  await expect(page.locator('.mode-insight-row').first()).toContainText('20m');
+  await expect(page.locator('.chart .bar-stack')).toHaveCount(7);
+  await expect(page.locator('.chart .bar-stack .bar-segment.work')).toHaveCount(1);
 
   await page.reload();
   await page.locator('.landing-screen').click({ position: { x: 180, y: 380 } });
@@ -80,6 +85,26 @@ test('pause freezes the countdown and resume continues it', async ({ page }) => 
   await expect(page.getByRole('button', { name: 'Start Break' })).toBeVisible();
 });
 
+test('stopping a focus session saves the elapsed minutes', async ({ page }) => {
+  await enterFocus(page);
+  await page.getByRole('button', { name: 'Start Focus' }).click();
+  await page.clock.fastForward(70 * 1000);
+
+  await page.getByRole('button', { name: 'Stop Focus' }).click();
+  await expect(page.getByRole('dialog', { name: 'Stop this focus?' })).toBeVisible();
+  await expect(
+    page.getByText('Your focused time so far will be saved to your history.'),
+  ).toBeVisible();
+  await page.locator('.confirm-actions .confirm-stop-button').click();
+
+  await expect(page.getByRole('button', { name: 'Start Focus' })).toBeVisible();
+  await expect(page.locator('.timer-value')).toHaveText('20:00');
+
+  await page.getByRole('button', { name: 'Insights', exact: true }).click();
+  await expect(page.locator('.total-stat .stat-value')).toHaveText('1m');
+  await expect(page.locator('.mode-insight-row').first()).toContainText('1m');
+});
+
 test('settings edits, adds and removes focus modes', async ({ page }) => {
   await enterFocus(page);
   await page.getByRole('button', { name: 'Open settings' }).click();
@@ -104,12 +129,32 @@ test('settings edits, adds and removes focus modes', async ({ page }) => {
   await expect(reminderSwitch).toHaveAttribute('aria-checked', 'false');
 
   await page.getByRole('button', { name: 'Back' }).click();
-  await expect(page.getByRole('button', { name: 'Deep Work' })).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Reading' })).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Reading' })).toHaveAttribute(
-    'aria-pressed',
-    'true',
-  );
+  const modeButton = page.getByRole('button', { name: 'Change focus mode' });
+  await expect(modeButton).toContainText('Reading');
+  await modeButton.click();
+  await expect(page.locator('.mode-menu button', { hasText: 'Deep Work' })).toBeVisible();
+});
+
+test('resetting Faraway clears local history after two confirmations', async ({ page }) => {
+  await enterFocus(page);
+  await page.getByRole('button', { name: 'Start Focus' }).click();
+  await page.clock.fastForward(70 * 1000);
+  await page.getByRole('button', { name: 'Stop Focus' }).click();
+  await page.locator('.confirm-actions .confirm-stop-button').click();
+  await page.getByRole('button', { name: 'Insights', exact: true }).click();
+  await expect(page.locator('.total-stat .stat-value')).toHaveText('1m');
+
+  await page.getByRole('button', { name: 'Focus', exact: true }).click();
+  await page.getByRole('button', { name: 'Open settings' }).click();
+  await page.locator('.reset-section button').click();
+  await expect(page.getByRole('dialog', { name: 'Reset Faraway?' })).toBeVisible();
+  await page.getByRole('button', { name: 'Continue' }).click();
+  await expect(page.getByRole('dialog', { name: 'Are you absolutely sure?' })).toBeVisible();
+  await page.getByRole('button', { name: 'Reset Everything' }).click();
+
+  await expect(page.getByRole('button', { name: 'Start Focus' })).toBeVisible();
+  await page.getByRole('button', { name: 'Insights', exact: true }).click();
+  await expect(page.locator('.total-stat .stat-value')).toHaveText('0m');
 });
 
 test('the timer can be resumed into a fresh interval from complete', async ({ page }) => {

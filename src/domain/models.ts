@@ -36,11 +36,17 @@ export interface FarawaySnapshot {
   sessions: FocusSession[];
 }
 
+export interface ChartSegment {
+  color: FocusColor;
+  minutes: number;
+}
+
 export interface ChartPoint {
   label: string;
   minutes: number;
   current: boolean;
   fullLabel: string;
+  segments: ChartSegment[];
 }
 
 export interface ModeTotal {

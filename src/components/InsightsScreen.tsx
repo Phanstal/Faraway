@@ -48,11 +48,9 @@ export function InsightsScreen({ controller, onChangeView }: InsightsScreenProps
           <span className="section-title">Focus modes</span>
           <div className="mode-insight-list">
             {totals.map((mode) => (
-              <div className="mode-insight-card" key={mode.id}>
-                <span className="mode-insight-heading">
-                  <span className={`mode-dot ${mode.color}`} aria-hidden="true" />
-                  <span className="mode-insight-name">{mode.label || 'Focus'}</span>
-                </span>
+              <div className="mode-insight-row" key={mode.id}>
+                <span className={`mode-dot ${mode.color}`} aria-hidden="true" />
+                <span className="mode-insight-name">{mode.label || 'Focus'}</span>
                 <span className="mode-insight-time">{formatDuration(mode.minutes)}</span>
               </div>
             ))}
@@ -82,10 +80,23 @@ export function InsightsScreen({ controller, onChangeView }: InsightsScreenProps
               {chartData.map((point, index) => (
                 <div className="bar-column" key={`${point.fullLabel}-${index}`}>
                   <div
-                    className={`bar ${point.current ? 'current' : ''}`}
+                    className={`bar-stack ${point.current ? 'current' : ''}`}
                     style={{ height: `${Math.max(8, (point.minutes / max) * 100)}%` }}
                     title={`${point.fullLabel}: ${formatDuration(point.minutes)}`}
-                  />
+                  >
+                    {point.segments.length ? (
+                      point.segments.map((segment) => (
+                        <span
+                          key={segment.color}
+                          className={`bar-segment ${segment.color}`}
+                          style={{ flex: segment.minutes }}
+                          title={`${segment.color}: ${formatDuration(segment.minutes)}`}
+                        />
+                      ))
+                    ) : (
+                      <span className="bar-segment empty" />
+                    )}
+                  </div>
                   <span>{point.label}</span>
                 </div>
               ))}

@@ -5,14 +5,13 @@ interface TimerOrbProps {
   mode: TimerMode;
   remaining: number;
   total: number;
-  onStartBreak: () => void;
 }
 
 const RADIUS = 132;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 const BREAK_MODES: TimerMode[] = ['break-ready', 'break', 'complete'];
 
-export function TimerOrb({ mode, remaining, total, onStartBreak }: TimerOrbProps) {
+export function TimerOrb({ mode, remaining, total }: TimerOrbProps) {
   const progress = Math.max(0.03, Math.min(1, remaining / total));
   const isBreak = BREAK_MODES.includes(mode);
   const eyebrow = isBreak
@@ -45,15 +44,9 @@ export function TimerOrb({ mode, remaining, total, onStartBreak }: TimerOrbProps
 
       <div className="timer-copy">
         <span className="eyebrow">{eyebrow}</span>
-        {mode === 'break-ready' ? (
-          <button type="button" className="start-break-button" onClick={onStartBreak}>
-            Start Break
-          </button>
-        ) : (
-          <span className="timer-value">
-            {mode === 'complete' ? '00:00' : formatClock(remaining)}
-          </span>
-        )}
+        <span className="timer-value">
+          {mode === 'complete' ? '00:00' : formatClock(remaining)}
+        </span>
         <span className="timer-detail">{detail}</span>
       </div>
     </div>
