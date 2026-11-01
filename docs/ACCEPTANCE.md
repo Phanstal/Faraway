@@ -191,7 +191,7 @@ iOS 模拟器由 CI 启动并截图，界面与安全区正常：
 | 格式        | `npm run format:check`    | passed                                                                          |
 | Android APK | `./gradlew assembleDebug` | BUILD SUCCESSFUL                                                                |
 | iOS 模拟器  | GitHub Actions macOS      | 构建、启动、截图均成功                                                          |
-| CI 全流程   | GitHub Actions            | [run 41323476011](https://github.com/Phanstal/Faraway/actions/runs/41323476011) |
+| CI 全流程   | GitHub Actions            | [run 41324146163](https://github.com/Phanstal/Faraway/actions/runs/41324146163) |
 
 ## 发布产物验收
 
@@ -205,6 +205,6 @@ iOS 模拟器由 CI 启动并截图，界面与安全区正常：
 ## 发布记录
 
 - Release：[Faraway v0.1.3](https://github.com/Phanstal/Faraway/releases/tag/v0.1.3)（[RELEASE_RUN_LINK]）
-- CI：[run 41323476011](https://github.com/Phanstal/Faraway/actions/runs/41323476011)
+- CI：[run 41324146163](https://github.com/Phanstal/Faraway/actions/runs/41324146163)
 - 本地 Android 验收：API 33 模拟器，`0.1.3` APK 安装成功；模式下拉、停止确认、重置、持久化与安全区已验证。
 - iOS：模拟器构建与启动截图通过；真机安装需要用户自己的 Apple 签名，未在本机验证。
