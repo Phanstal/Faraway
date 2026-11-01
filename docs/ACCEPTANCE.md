@@ -175,7 +175,7 @@ iOS 模拟器由 CI 启动并截图，界面与安全区正常：
 | 格式        | `npm run format:check`    | passed                                                                                     |
 | Android APK | `./gradlew assembleDebug` | BUILD SUCCESSFUL                                                                           |
 | iOS 模拟器  | GitHub Actions macOS      | 构建、启动、截图均成功                                                                     |
-| CI 全流程   | GitHub Actions            | success（[run 41165955195](https://github.com/Phanstal/Faraway/actions/runs/41165955195)） |
+| CI 全流程   | GitHub Actions            | success（[run 41297388023](https://github.com/Phanstal/Faraway/actions/runs/41297388023)） |
 
 ## 发布产物验收
 
@@ -189,7 +189,7 @@ iOS 模拟器由 CI 启动并截图，界面与安全区正常：
 ## 发布记录
 
 - Release：[Faraway v0.1.2](https://github.com/Phanstal/Faraway/releases/tag/v0.1.2)
-- Release workflow：[run 41165969359](https://github.com/Phanstal/Faraway/actions/runs/41165969359)，Android APK、未签名 IPA、模拟器 zip 全部构建并发布成功。
-- CI：[run 41165955195](https://github.com/Phanstal/Faraway/actions/runs/41165955195)，Web / Android / iOS 三个 job 全部成功。
+- Release workflow：[run 41297391378](https://github.com/Phanstal/Faraway/actions/runs/41297391378)，Android APK、未签名 IPA、模拟器 zip 全部构建并发布成功。
+- CI：[run 41297388023](https://github.com/Phanstal/Faraway/actions/runs/41297388023)，Web / Android / iOS 三个 job 全部成功。
 - 本地 Android 验收：API 33 模拟器，debug APK 安装成功；通知权限弹窗、排期、后台恢复、完整循环、返回键与持久化已验证。
 - iOS：模拟器构建与启动截图通过；真机安装需要用户自己的 Apple 签名，未在本机验证。

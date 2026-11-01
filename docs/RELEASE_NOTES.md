@@ -33,10 +33,12 @@ Figma 原型把专注时长加速为 10 秒用于演示，因此设计稿中的�
 
 ## 验证情况
 
+- CI：[run 41297388023](https://github.com/Phanstal/Faraway/actions/runs/41297388023)，Web / Android / iOS 三个 job 全部成功。
+- Release workflow：[run 41297391378](https://github.com/Phanstal/Faraway/actions/runs/41297391378)，APK、未签名 IPA、模拟器 zip 与 SHA256SUMS.txt 全部上传成功。
 - Web：lint、格式、类型检查、16 项单元测试、5 项移动端 E2E 全部通过；E2E 覆盖 20 分钟专注和 20 秒休息。
-- Android：构建并安装 `0.1.2` APK，确认包内 `versionCode 3` / `versionName 0.1.2`，初始计时器显示 `20:00`。
-- iOS：GitHub Actions macOS 14 runner 构建、安装、启动并截图模拟器 App；设备目标由 release workflow 构建未签名 IPA。本地环境为 Windows，无法在真机上运行验证；真机安装需要用户自己的 Apple 签名。
-- CI 与 Release workflow 成功后，重新下载发布文件并核对 SHA-256。
+- Android：发布 APK 安装到 API 33 模拟器，包内 `versionCode 3` / `versionName 0.1.2`，初始计时器显示 `20:00`。
+- iOS：GitHub Actions macOS 14 runner 构建、安装、启动并截图模拟器 App；设备目标由 release workflow 构建未签名 IPA，包内版本为 `0.1.2` / build `3`。本地环境为 Windows，无法在真机上运行验证；真机安装需要用户自己的 Apple 签名。
+- 发布文件：APK、IPA、模拟器 zip 与 SHA256SUMS.txt 已重新下载并核对，SHA-256 与清单一致；Android 发布 APK 的 SHA-256 为 `c1065e682afd492b2dccff82b707f53eb494e56fd159eb418e28486c9ffaf9fc`。
 
 ## 已知限制
 
