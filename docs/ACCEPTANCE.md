@@ -198,7 +198,7 @@ iOS 模拟器由 CI 启动并截图，界面与安全区正常：
 
 - [x] GitHub Release 包含 APK、未签名 IPA、模拟器 zip、SHA256SUMS.txt（Release #41324911720）。
 - [x] 所有文件的 SHA-256 与 `SHA256SUMS.txt` 一致；本地重新计算后完全匹配。
-- [x] APK 安装到 Android 13 模拟器并成功启动；包内版本为 `0.1.3` / `4`，初始计时器显示 `20:00`。
+- [x] APK 安装到 Android 13 模拟器并成功启动；包内版本为 `0.1.3` / `4`，初始计时器显示 `20:00`。发布 APK 已从 Release 重新下载并完成全新安装启动；从 0.1.2 的 CI debug 包直接覆盖会因临时 debug key 不同而提示签名不一致，需先卸载。
 - [x] 未签名 IPA 解包后 `Payload/App.app`、可执行文件、`Info.plist` 与网页资源完整；`CFBundleShortVersionString 0.1.3`、build 4；未实际进行重签。
 - [ ] 模拟器 zip 能在 macOS Xcode Simulator 中启动（CI 已对同源 Debug 模拟器包做启动截图，Release zip 因本地无 Mac 未单独启动）。
 - [ ] 真机验收记录补充到本文件。

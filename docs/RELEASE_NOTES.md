@@ -51,6 +51,7 @@ Figma 原型把专注时长加速为 10 秒用于演示，因此设计稿中的�
 - 暂无云同步、账号、导出/导入；数据只在本机。
 - Android 本地通知使用非精确闹钟（系统未授予精确闹钟权限时可能延迟约 1 分钟）。
 - Android APK 未使用 release keystore 签名，不适合直接上架 Google Play。
+- GitHub Actions 每次构建使用临时 debug keystore，因此从 0.1.2 升级到 0.1.3 时如提示签名不一致，请先卸载旧版再安装；本地数据会随卸载清除。
 - iOS 没有 Apple Developer 证书，因此只发布未签名 IPA 与模拟器包。
 - iOS 真机安装与运行需要用户自行签名；签名有效期取决于 Apple ID 类型。
 
