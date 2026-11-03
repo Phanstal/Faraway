@@ -14,9 +14,9 @@
 
 | 平台       | 文件                                                                                                                              | 说明                                           |
 | ---------- | --------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
-| Android    | [`Faraway-0.1.3-android-debug.apk`](https://github.com/Phanstal/Faraway/releases/latest/download/Faraway-0.1.3-android-debug.apk) | 可直接安装的 debug 签名 APK                    |
-| iOS        | [`Faraway-0.1.3-ios-unsigned.ipa`](https://github.com/Phanstal/Faraway/releases/latest/download/Faraway-0.1.3-ios-unsigned.ipa)   | 未签名 IPA，需要使用自己的 Apple ID 重签后安装 |
-| iOS 模拟器 | [`Faraway-0.1.3-ios-simulator.zip`](https://github.com/Phanstal/Faraway/releases/latest/download/Faraway-0.1.3-ios-simulator.zip) | 需要 macOS + Xcode，解压后拖入模拟器           |
+| Android    | [`Faraway-0.1.4-android-debug.apk`](https://github.com/Phanstal/Faraway/releases/latest/download/Faraway-0.1.4-android-debug.apk) | 可直接安装的 debug 签名 APK                    |
+| iOS        | [`Faraway-0.1.4-ios-unsigned.ipa`](https://github.com/Phanstal/Faraway/releases/latest/download/Faraway-0.1.4-ios-unsigned.ipa)   | 未签名 IPA，需要使用自己的 Apple ID 重签后安装 |
+| iOS 模拟器 | [`Faraway-0.1.4-ios-simulator.zip`](https://github.com/Phanstal/Faraway/releases/latest/download/Faraway-0.1.4-ios-simulator.zip) | 需要 macOS + Xcode，解压后拖入模拟器           |
 | 校验       | [`SHA256SUMS.txt`](https://github.com/Phanstal/Faraway/releases/latest/download/SHA256SUMS.txt)                                   | 所有发布文件的 SHA-256                         |
 
 ### Android 安装
@@ -25,7 +25,7 @@
 2. 在系统设置中允许当前文件管理器或浏览器「安装未知应用」。
 3. 打开 APK 完成安装；首次启动会进入欢迎页，然后自动进入专注计时器。
 4. 如果系统提示「Play 保护机制」拦截，选择「仍要安装」。这是 debug 签名的正常提示，不是恶意软件。
-5. 如果手机上还装着 0.1.2 或更早的 CI debug 包，升级时可能提示签名不一致；先卸载旧版再安装 0.1.3（旧版本地数据会一起清除）。
+5. 如果手机上还装着 0.1.3 或更早的 CI debug 包，升级时可能提示签名不一致；先卸载旧版再安装 0.1.4（旧版本地数据会一起清除）。
 
 > APK 使用 Android debug key 签名，适合个人安装与验收，不适合直接提交 Google Play。正式上架需要配置 release keystore 后重新签名。
 
@@ -46,6 +46,8 @@
 - **停止本轮**：专注中或暂停时可点 `Stop Focus`，经过两步确认后结束本轮；已专注满 1 分钟会按整分钟写入历史。
 - **专注洞察**：总时长、今日时长、按模式拆分，以及 Day / Week / Month 三种趋势视图；趋势柱按模式颜色堆叠，空状态会引导完成第一轮专注。
 - **模式管理**：设置中可改名、删除，最多保留 3 个、至少保留 1 个；删除当前模式后会自动切换。
+- **改名不缩放**：设置中的模式名输入框在移动端固定为 16px，iOS 不会因为字号过小自动放大页面；同时锁定 viewport 双指缩放，键盘收起后不会停在放大状态。
+- **统一图标与启动页**：更换为日出公路图标，并同步 Android 自适应图标、iOS AppIcon、PWA/favicon 与启动页。
 - **重置数据**：设置页提供 `Reset Faraway`，经过两步确认后清空本机历史、模式与偏好。
 - **原生提醒**：Android / iOS 在专注结束前请求通知权限，并在计时结束时发出本地通知；设置中可关闭提醒。
 - **原生手感**：开始、暂停、完成和进入休息时有轻微触感反馈；Android 返回键按「设置/洞察 → 专注」逐层返回，专注页返回则退到后台。
@@ -82,6 +84,8 @@ iOS 模拟器运行（GitHub Actions macOS 15，iPhone 16 Pro 模拟器）：
 ## 设计来源与实现差异
 
 界面依据提供的 [Figma Make 原型](https://www.figma.com/make/mup9OJMdY4TlgWJ7mDLIFF/Faraway-iOS-App-Design) 复刻，保留了原型的浅蓝、冰蓝、薄荷绿配色，Inter 字体，圆形计时器，计时器上方的模式下拉，底部双标签，以及欢迎页、专注、眼休息、完成、洞察和设置六个界面。0.1.3 按原型当前版本重做了专注页、模式切换、停止确认、重置数据和洞察堆叠柱状图。
+
+0.1.4 又通过 Figma MCP 复核了 [Faraway 设计文件](https://www.figma.com/design/46zxalrl2LCCnF3VbkUw2P/Faraway?node-id=0-1)，当前画布只公开一个 landing 页面（`CODE_INSTANCE`），专注、设置、洞察页面没有可读取的节点。应用内 landing 的层级、文案、圆形视觉和底部进度条与该画面一致，对比图见 [`figma-latest-landing.png`](docs/screenshots/figma-latest-landing.png)；其余页面继续沿用 0.1.3 已验收的实现，不宣称做过 Figma 全量逐屏比对。
 
 原型为了演示把专注时长加速成 **10 秒**，截图中的计时器显示 `00:10`。正式版按 20-20-20 法则恢复为 **20 分钟**，眼休息保持 **20 秒**，因此专注页初始显示 `20:00`。这是唯一有意的行为调整，其余文案、层级与交互节奏按原型实现。
 

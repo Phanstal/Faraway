@@ -1384,6 +1384,16 @@ html.native .screen {
   box-shadow: inset 0 -1px var(--blue);
 }
 
+/* iOS/Android WebViews zoom the page when a focused input is under 16px.
+   Keep editable controls at 16px on touch devices so focusing a mode name
+   never changes the viewport scale. */
+@media (pointer: coarse) {
+  .mode-edit-row input,
+  .new-mode-field input {
+    font-size: 16px;
+  }
+}
+
 .remove-mode {
   padding: 6px 0 6px 8px;
   color: #8a6d67;

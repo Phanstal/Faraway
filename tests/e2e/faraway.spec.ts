@@ -111,6 +111,7 @@ test('settings edits, adds and removes focus modes', async ({ page }) => {
   await expect(page.getByRole('heading', { name: 'Settings' })).toBeVisible();
 
   const workInput = page.getByRole('textbox', { name: 'Edit Work mode name' });
+  await expect(workInput).toHaveCSS('font-size', '16px');
   await workInput.fill('Deep Work');
   await workInput.press('Enter');
 
