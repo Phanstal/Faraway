@@ -19,6 +19,7 @@
 - Web：`npm run lint`、`npm run format:check`、`npm run typecheck`、`npm test`（19 项单元测试）、`npm run test:e2e`（7 项 Pixel 7 移动端 E2E）全部通过。
 - Android：本地 API 33 模拟器安装 `0.1.4` APK，确认 `versionCode 5` / `versionName 0.1.4`；设置页模式名输入框聚焦后页面不放大，输入框计算字号为 `16px`；应用抽屉与启动页使用新图标。
 - iOS：由 GitHub Actions macOS 15 runner 构建未签名 IPA 与模拟器 App。iOS 的输入框自动缩放无法在 Windows 本机复现，修复采用移动端 16px 字号加 viewport 缩放锁定的标准方案，建议在真机验收时补一次改名操作。
+- CI：[CI #41575737687](https://github.com/Phanstal/Faraway/actions/runs/41575737687) 通过；Release：[#41575765354](https://github.com/Phanstal/Faraway/actions/runs/41575765354) 通过，APK、IPA、模拟器 zip 已上传并完成校验。
 - Figma：MCP 读取到设计文件仅有一个 landing `CODE_INSTANCE` 页面；对比截图保存在 `docs/screenshots/figma-latest-landing.png`。
 
 ## 下载文件
@@ -27,6 +28,16 @@
 - [Faraway-0.1.4-ios-unsigned.ipa](https://github.com/Phanstal/Faraway/releases/download/v0.1.4/Faraway-0.1.4-ios-unsigned.ipa) — iOS 未签名 IPA，需要自行用 Apple ID 重签。
 - [Faraway-0.1.4-ios-simulator.zip](https://github.com/Phanstal/Faraway/releases/download/v0.1.4/Faraway-0.1.4-ios-simulator.zip) — iOS 模拟器 App，需要 macOS + Xcode。
 - [SHA256SUMS.txt](https://github.com/Phanstal/Faraway/releases/download/v0.1.4/SHA256SUMS.txt) — 校验和。
+
+## 发布产物
+
+| 文件                              | 大小      | SHA-256                                                            |
+| --------------------------------- | --------- | ------------------------------------------------------------------ |
+| `Faraway-0.1.4-android-debug.apk` | 5,877,214 | `9488b82e7959ce4334888210a9f7d53d527763eb237f3361327224e8fb6b745e` |
+| `Faraway-0.1.4-ios-unsigned.ipa`  | 3,441,843 | `514599cab7d2dcf5dc49a5f5da1bf4d17bcfa607dd5b0e2ca87bc0c47903d3de` |
+| `Faraway-0.1.4-ios-simulator.zip` | 4,030,465 | `e93f689231d5e5f66b262959811e955050e318125b7060509a3b438bf5d03efa` |
+
+本地重新计算 SHA-256 与 `SHA256SUMS.txt` 完全一致；APK 包内为 `versionCode 5` / `versionName 0.1.4`，IPA 为 `0.1.4` / build 5。
 
 ## 已知限制
 

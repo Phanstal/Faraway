@@ -21,6 +21,7 @@ docs/design/
 playwright-report/
 test-results/
 artifacts/
+releases/
 release-v0.1.*/
 .edge-profile/
 .DS_Store

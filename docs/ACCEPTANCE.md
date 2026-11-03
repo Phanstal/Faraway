@@ -204,28 +204,28 @@ iOS 模拟器由 CI 启动并截图，界面与安全区正常：
 | 格式        | `npm run format:check`    | passed                                                                          |
 | Android APK | `./gradlew assembleDebug` | BUILD SUCCESSFUL                                                                |
 | iOS 模拟器  | GitHub Actions macOS      | 构建、启动、截图均成功                                                          |
-| CI 全流程   | GitHub Actions            | [run 41324146163](https://github.com/Phanstal/Faraway/actions/runs/41324146163) |
+| CI 全流程   | GitHub Actions            | [run 41575737687](https://github.com/Phanstal/Faraway/actions/runs/41575737687) |
 
 ## 发布产物验收
 
-- [x] GitHub Release 包含 APK、未签名 IPA、模拟器 zip、SHA256SUMS.txt（Release #41324911720）。
+- [x] GitHub Release 包含 APK、未签名 IPA、模拟器 zip、SHA256SUMS.txt（Release #41575765354）。
 - [x] 所有文件的 SHA-256 与 `SHA256SUMS.txt` 一致；本地重新计算后完全匹配。
-- [x] APK 安装到 Android 13 模拟器并成功启动；包内版本为 `0.1.4` / `4`，初始计时器显示 `20:00`。发布 APK 已从 Release 重新下载并完成全新安装启动；从 0.1.2 的 CI debug 包直接覆盖会因临时 debug key 不同而提示签名不一致，需先卸载。
+- [x] APK 从 Release 重新下载并完成全新安装启动；包内版本为 `0.1.4` / `5`，初始计时器显示 `20:00`；设置改名不放大、应用抽屉图标与启动页已复验。
 - [x] 未签名 IPA 解包后 `Payload/App.app`、可执行文件、`Info.plist` 与网页资源完整；`CFBundleShortVersionString 0.1.4`、build 5；未实际进行重签。
-- [ ] 模拟器 zip 能在 macOS Xcode Simulator 中启动（CI 已对同源 Debug 模拟器包做启动截图，Release zip 因本地无 Mac 未单独启动）。
+- [ ] 模拟器 zip 能在 macOS Xcode Simulator 中启动（CI 已对同源模拟器包做构建，本地无 Mac 未单独启动）。
 - [ ] 真机验收记录补充到本文件。
 
 发布产物实测：
 
 | 文件                              | 大小      | SHA-256                                                            |
 | --------------------------------- | --------- | ------------------------------------------------------------------ |
-| `Faraway-0.1.4-android-debug.apk` | 5,317,693 | `5eba5c6f2feb04de42a4d4160b90f76192a9de908b99293f8cd656482c8731b9` |
-| `Faraway-0.1.4-ios-unsigned.ipa`  | 1,413,119 | `52aa0be0bd60b2c55e4965afdfb5d88e509dc263ac557a7f5ffb948bebb6952a` |
-| `Faraway-0.1.4-ios-simulator.zip` | 2,010,411 | `df5ab2ae5a2f31a2081b4837ad0031385ca05cd2f559a7184755ca91416966df` |
+| `Faraway-0.1.4-android-debug.apk` | 5,877,214 | `9488b82e7959ce4334888210a9f7d53d527763eb237f3361327224e8fb6b745e` |
+| `Faraway-0.1.4-ios-unsigned.ipa`  | 3,441,843 | `514599cab7d2dcf5dc49a5f5da1bf4d17bcfa607dd5b0e2ca87bc0c47903d3de` |
+| `Faraway-0.1.4-ios-simulator.zip` | 4,030,465 | `e93f689231d5e5f66b262959811e955050e318125b7060509a3b438bf5d03efa` |
 
 ## 发布记录
 
-- Release：[Faraway v0.1.4](https://github.com/Phanstal/Faraway/releases/tag/v0.1.4)（[Release #41324911720](https://github.com/Phanstal/Faraway/actions/runs/41324911720)）
-- CI：[run 41324146163](https://github.com/Phanstal/Faraway/actions/runs/41324146163)
-- 本地 Android 验收：API 33 模拟器，`0.1.4` APK 安装成功；模式下拉、停止确认、重置、持久化与安全区已验证。
-- iOS：模拟器构建、安装、启动截图通过；未签名 IPA 与 Release 模拟器包结构、版本已校验；真机安装需要用户自己的 Apple 签名，未在本机验证。
+- Release：[Faraway v0.1.4](https://github.com/Phanstal/Faraway/releases/tag/v0.1.4)（[Release #41575765354](https://github.com/Phanstal/Faraway/actions/runs/41575765354)）
+- CI：[run 41575737687](https://github.com/Phanstal/Faraway/actions/runs/41575737687)
+- 本地 Android 验收：API 33 模拟器，`0.1.4` APK 安装成功；模式改名不触发缩放、新图标与启动页、模式下拉、停止确认、重置、持久化与安全区已验证。
+- iOS：模拟器构建、未签名 IPA 与模拟器包结构/版本已校验；本地无 Mac，未单独启动 Release 模拟器 zip，真机安装需要用户自己的 Apple 签名。
